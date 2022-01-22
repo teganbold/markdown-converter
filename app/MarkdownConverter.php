@@ -39,14 +39,18 @@ class MarkdownConverter implements Converter
             return $this->markdown->toHtml($markdown, 'p');
         }
 
-            $markdown = $this->tag->convertHyperlinkToHtml($markdown);
+        $linedMarkdown = $this->markdown->sliceMultiLineMarkdown($markdown);
+
+        foreach ($linedMarkdown as $line) {
+            $linkStrippedLine = $this->tag->convertHyperlinkToHtml($line);
             $markdownTags = $this->getMarkdownTagDataset();
-            $foundTags = $this->markdown->findMarkdown($markdownTags, $markdown);
+            $foundTags = $this->markdown->findMarkdown($markdownTags, $linkStrippedLine);
             if($foundTags) {
-                $htmlMarkupOutput = $this->markdown->toHtml($this->markdown->removeMarkdown($markdown), $foundTags['htmlEntity']);
+                $htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($linkStrippedLine), $foundTags['htmlEntity']);
             } else {
-                $htmlMarkupOutput = $markdown;
+                $htmlMarkupOutput .= $this->markdown->toHtml($linkStrippedLine, 'p');
             }
+        }
 
         return $htmlMarkupOutput;
     }

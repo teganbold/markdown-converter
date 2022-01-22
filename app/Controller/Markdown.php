@@ -26,6 +26,25 @@ class Markdown
     }
 
     /**
+     *  Slice the markup into multiple lines, in order to process each item line by line
+     * 
+     * @param  string $markdown
+     * @return array
+     */
+    public function sliceMultiLineMarkdown(string $markdown): array {
+        $separator = "\r\n";
+        $line = strtok($markdown, $separator);
+        $linedMarkdown = [];
+
+        while ($line !== false) {
+            $linedMarkdown[] = ltrim($line);
+            $line = strtok($separator);
+        }
+
+        return $linedMarkdown;
+    }
+
+    /**
      * Search the string for potential markdown, and return the html entity and markdown tag.
      * 
      * @param  array $tags: \app\Model\MarkdownData
