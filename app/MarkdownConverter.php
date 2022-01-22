@@ -9,13 +9,15 @@ use App\Model\MarkdownData as Model;
 
 class MarkdownConverter implements Converter
 {
+    private $markdownTags;
+
     /**
      * Manually instantiate Model and Controller (with model as a dependency)
      */
     public function __construct() {
         $this->model = new Model();
         $this->markdown = new Markdown($this->model);
-        $this->tag = new Tag();
+        $this->tag = new Tag($this->model);
     }
 
     /**
@@ -40,7 +42,9 @@ class MarkdownConverter implements Converter
         if($this->tag->hasHyperlink($markdown)) {
             $htmlMarkupOutput .= $this->tag->convertHyperlinkToHtml($markdown);
         } else {
-            $htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($markdown), 'h1');
+            $markdownTags = $this->getMarkdownTagDataset();
+            $foundTags = $this->markdown->findMarkdown($markdownTags, $markdown);
+            $htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($markdown), $foundTags['htmlEntity']);
         }
 
         return $htmlMarkupOutput;
@@ -53,7 +57,7 @@ class MarkdownConverter implements Converter
      * @return boolean
      */
     public function hasMarkdown(string $markdown): bool {
-        $markdownTags = $this->model->getAllMarkdownTags();
+        $markdownTags = $this->getMarkdownTagDataset();
         $count = 0;
         str_replace($markdownTags, '', $markdown, $count);
 
@@ -63,4 +67,18 @@ class MarkdownConverter implements Converter
 
         return false;
     }
+
+    /**
+     * Get the cached dataset of markdown tags
+     *
+     * @return App\Model\MarkdownData::Array
+     */
+    private function getMarkdownTagDataset() {
+        if(!$this->markdownTags) {
+            $this->markdownTags = $this->model->getAllMarkdownTags();
+        }
+
+        return $this->markdownTags;
+    }
+
 }

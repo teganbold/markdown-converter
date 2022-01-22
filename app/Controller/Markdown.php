@@ -6,6 +6,9 @@ use App\Model\MarkdownData as Model;
 
 class Markdown
 {
+    /**
+     * @param \App\Model\MarkdownData
+     */
     public function __construct(\App\Model\MarkdownData $model) {
         $this->model = $model;
     }
@@ -20,6 +23,25 @@ class Markdown
      */
     public function toHtml(string $value, string $htmlEntity, string $htmlOptions = ''): string {
         return '<' . $htmlEntity . '>' . $value . '</' . $htmlEntity . '>';
+    }
+
+    /**
+     * Search the string for potential markdown, and return the html entity and markdown tag.
+     * 
+     * @param  array $tags: \app\Model\MarkdownData
+     * @param  string $snippet: string to search
+     * @return array
+     */
+    public function findMarkdown(array $tags, string $snippet): array {
+        $matchedMarkdown = [];
+        foreach($tags as $htmlEntity => $tag) {
+            if(strpos($snippet, $tag) !== false) {
+                $matchedMarkdown['htmlEntity'] = $htmlEntity;
+                $matchedMarkdown['markdownTag'] = $tag;
+            }
+        }
+
+        return $matchedMarkdown;
     }
 
     /**

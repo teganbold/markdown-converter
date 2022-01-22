@@ -4,7 +4,15 @@ namespace App\Controller;
 
 class Tag
 {
+    // Regex pattern shamelessly stolen from stackoverflow
     const LINK_REGEX = "/\[([^]]*)\] *\(([^)]*)\)/i";
+
+    /**
+     * @param \App\Model\MarkdownData
+     */
+    public function __construct(\App\Model\MarkdownData $model) {
+        $this->model = $model;
+    }
 
     /**
      * Check if string has hyperlink, with url prefixed with 'https://'
@@ -34,5 +42,9 @@ class Tag
         }
 
         return preg_replace(self::LINK_REGEX, '<a href="$2">$1</a>', $snippet);
+    }
+
+    public function matchHtmlEntity($markdownTag) {
+
     }
 }

@@ -4,7 +4,7 @@ namespace App\Model;
 
 class MarkdownData
 {
-    const TAG_H          = '#';
+    const TAG_H1         = '#';
     const TAG_H2         = '##';
     const TAG_H3         = '###';
     const TAG_H4         = '####';
@@ -14,8 +14,6 @@ class MarkdownData
     const TAG_EMPHASIS   = '**';
     const TAG_BLOCKQUOTE = '>';
     const TAG_CODE       = '`';
-
-    const TAG_UNORDEREDLIST = ['-', '*', '_'];
 
     /**
      *  Manually collect all markdown tags from the constants decalred
@@ -32,12 +30,12 @@ class MarkdownData
         }
 
         return [
-            'h1' => self::TAG_H . $spacer,
-            'h2' => self::TAG_H . $spacer,
-            'h3' => self::TAG_H . $spacer,
-            'h4' => self::TAG_H . $spacer,
-            'h5' => self::TAG_H . $spacer,
-            'h6' => self::TAG_H . $spacer,
+            'h1' => self::TAG_H1 . $spacer,
+            'h2' => self::TAG_H2 . $spacer,
+            'h3' => self::TAG_H3 . $spacer,
+            'h4' => self::TAG_H4 . $spacer,
+            'h5' => self::TAG_H5 . $spacer,
+            'h6' => self::TAG_H6 . $spacer,
             'strong' =>self::TAG_STRONG . $spacer,
             'em' => self::TAG_EMPHASIS . $spacer,
             'blockquote' => self::TAG_BLOCKQUOTE . $spacer,

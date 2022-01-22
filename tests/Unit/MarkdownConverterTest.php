@@ -37,6 +37,15 @@ class MarkdownConverterTest extends TestCase
     public function testH1WithSpace() {
         $this->assertEquals('<h1>H1 Tag</h1>', $this->markdownConverter->convert('# H1 Tag'));
     }
+    /**
+     * @test
+     */
+    public function testAllHTags() {
+        for ($i = 1; $i < 7; $i++) {
+            $markdown = str_repeat('#', $i);
+            $this->assertEquals('<h' . $i . '>HeaderTags</h' . $i . '>', $this->markdownConverter->convert($markdown . ' HeaderTags'));
+        }
+    }
 
     /**
      * @test
