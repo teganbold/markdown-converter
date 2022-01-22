@@ -5,8 +5,13 @@ namespace App\Model;
 class MarkdownData
 {
     const TAG_H          = '#';
-    const TAG_BOLD       = '*';
-    const TAG_ITALICS    = '**';
+    const TAG_H2         = '##';
+    const TAG_H3         = '###';
+    const TAG_H4         = '####';
+    const TAG_H5         = '#####';
+    const TAG_H6         = '######';
+    const TAG_STRONG     = '*';
+    const TAG_EMPHASIS   = '**';
     const TAG_BLOCKQUOTE = '>';
     const TAG_CODE       = '`';
 
@@ -27,11 +32,16 @@ class MarkdownData
         }
 
         return [
-            self::TAG_H . $spacer,
-            self::TAG_BOLD . $spacer,
-            self::TAG_ITALICS . $spacer,
-            self::TAG_BLOCKQUOTE . $spacer,
-            self::TAG_CODE . $spacer
+            'h1' => self::TAG_H . $spacer,
+            'h2' => self::TAG_H . $spacer,
+            'h3' => self::TAG_H . $spacer,
+            'h4' => self::TAG_H . $spacer,
+            'h5' => self::TAG_H . $spacer,
+            'h6' => self::TAG_H . $spacer,
+            'strong' =>self::TAG_STRONG . $spacer,
+            'em' => self::TAG_EMPHASIS . $spacer,
+            'blockquote' => self::TAG_BLOCKQUOTE . $spacer,
+            'pre' => self::TAG_CODE . $spacer
         ];
     }
 }
