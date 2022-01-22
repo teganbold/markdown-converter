@@ -64,4 +64,13 @@ class MarkdownConverterTest extends TestCase
         $googleHtml = '<a href="https://google.com">Google</a>';
         $this->assertEquals('Search for it on ' . $googleHtml . ' to find out more information.', $this->markdownConverter->convert('Search for it on ' . $googleMarkdown . ' to find out more information.'));
     }
+
+    /**
+     * @test
+     */
+    public function testHeaderwithLink() {
+        $googleMarkdown = '# Check us out with [Google](https://google.com)';
+        $googleHtml = '<h1>Check us out with <a href="https://google.com">Google</a></h1>';
+        $this->assertEquals($googleHtml, $this->markdownConverter->convert($googleMarkdown));
+    }
 }

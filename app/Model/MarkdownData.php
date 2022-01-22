@@ -12,7 +12,6 @@ class MarkdownData
     const TAG_H6         = '######';
     const TAG_STRONG     = '*';
     const TAG_EMPHASIS   = '**';
-    const TAG_BLOCKQUOTE = '>';
     const TAG_CODE       = '`';
 
     /**
@@ -38,7 +37,6 @@ class MarkdownData
             'h6' => self::TAG_H6 . $spacer,
             'strong' =>self::TAG_STRONG . $spacer,
             'em' => self::TAG_EMPHASIS . $spacer,
-            'blockquote' => self::TAG_BLOCKQUOTE . $spacer,
             'pre' => self::TAG_CODE . $spacer
         ];
     }
