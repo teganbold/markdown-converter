@@ -9,8 +9,6 @@ use App\Model\MarkdownData as Model;
 
 class MarkdownConverter implements Converter
 {
-    public $htmlMarkupOutput = '';
-
     /**
      * Manually instantiate Model and Controller (with model as a dependency)
      */
@@ -33,18 +31,19 @@ class MarkdownConverter implements Converter
             return 'Please enter text to be converted, nothing given.';
         }
 
+        $htmlMarkupOutput = '';
+
         if ($this->hasMarkdown($markdown) === false) {
-            $this->htmlMarkupOutput .= $this->markdown->toHtml($markdown, 'p');
-            return $this->htmlMarkupOutput;
+            return $this->markdown->toHtml($markdown, 'p');
         }
 
         if($this->tag->hasHyperlink($markdown)) {
-            $this->htmlMarkupOutput .= $this->tag->convertHyperlinkToHtml($markdown);
+            $htmlMarkupOutput .= $this->tag->convertHyperlinkToHtml($markdown);
         } else {
-            $this->htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($markdown), 'h1');
+            $htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($markdown), 'h1');
         }
 
-        return $this->htmlMarkupOutput;
+        return $htmlMarkupOutput;
     }
 
     /**
