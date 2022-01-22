@@ -53,7 +53,7 @@ class MarkdownConverterTest extends TestCase
     public function testHyperlink() {
         $googleMarkdown = '[Google](https://google.com)';
         $googleHtml = '<a href="https://google.com">Google</a>';
-        $this->assertEquals($googleHtml, $this->markdownConverter->convert($googleMarkdown));
+        $this->assertEquals('<p>' . $googleHtml . '</p>', $this->markdownConverter->convert($googleMarkdown));
     }
 
     /**
@@ -62,7 +62,7 @@ class MarkdownConverterTest extends TestCase
     public function testInlineHyperlink() {
         $googleMarkdown = '[Google](https://google.com)';
         $googleHtml = '<a href="https://google.com">Google</a>';
-        $this->assertEquals('Search for it on ' . $googleHtml . ' to find out more information.', $this->markdownConverter->convert('Search for it on ' . $googleMarkdown . ' to find out more information.'));
+        $this->assertEquals('<p>Search for it on ' . $googleHtml . ' to find out more information.</p>', $this->markdownConverter->convert('Search for it on ' . $googleMarkdown . ' to find out more information.'));
     }
 
     /**
@@ -72,5 +72,26 @@ class MarkdownConverterTest extends TestCase
         $googleMarkdown = '# Check us out with [Google](https://google.com)';
         $googleHtml = '<h1>Check us out with <a href="https://google.com">Google</a></h1>';
         $this->assertEquals($googleHtml, $this->markdownConverter->convert($googleMarkdown));
+    }
+
+    /**
+     * @test
+     */
+    public function testMailchimpFirstInput() {
+        $mailchimpMarkdown = <<<EOD
+            # Sample Document
+
+            Hello!
+
+            This is sample markdown for the [Mailchimp](https://www.mailchimp.com) homework assignment.
+        EOD;
+        $mailchimpHtml = <<<EOD
+            <h1>Sample Document</h1>
+
+            <p>Hello</p>
+
+            <p>This is sample markdown for the <a href="https://www.mailchimp.com">Mailchimp</a> homework assignment</p>
+        EOD;
+        $this->assertEquals($mailchimpHtml, $this->markdownConverter->convert($mailchimpMarkdown));
     }
 }
