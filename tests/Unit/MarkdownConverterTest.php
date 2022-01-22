@@ -37,4 +37,22 @@ class MarkdownConverterTest extends TestCase
     public function testH1WithSpace() {
         $this->assertEquals('<h1>H1 Tag</h1>', $this->markdownConverter->convert('# H1 Tag'));
     }
+
+    /**
+     * @test
+     */
+    public function testHyperlink() {
+        $googleMarkdown = '[Google](https://google.com)';
+        $googleHtml = '<a href="https://google.com">Google</a>';
+        $this->assertEquals($googleHtml, $this->markdownConverter->convert($googleMarkdown));
+    }
+
+    /**
+     * @test
+     */
+    public function testInlineHyperlink() {
+        $googleMarkdown = '[Google](https://google.com)';
+        $googleHtml = '<a href="https://google.com">Google</a>';
+        $this->assertEquals('Search for it on ' . $googleHtml . ' to find out more information.', $this->markdownConverter->convert('Search for it on ' . $googleMarkdown . ' to find out more information.'));
+    }
 }

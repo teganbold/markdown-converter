@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\MarkdownData as Model;
 
-class MarkdownLogic
+class Markdown
 {
     public function __construct(\App\Model\MarkdownData $model) {
         $this->model = $model;
@@ -18,7 +18,7 @@ class MarkdownLogic
      * @param  string $htmlOptions:  [optional]
      * @return html snippet
      */
-    public function toHtml(string $value, string $htmlEntity, string $htmlOptions = '') {
+    public function toHtml(string $value, string $htmlEntity, string $htmlOptions = ''): string {
         return '<' . $htmlEntity . '>' . $value . '</' . $htmlEntity . '>';
     }
 
@@ -30,7 +30,7 @@ class MarkdownLogic
      * @param  string $markdown: String to be stripped of tags
      * @return string
      */
-    public function removeMarkdown(string $markdown) {
+    public function removeMarkdown(string $markdown): string {
         $markDownTags =  '';
 
         //First Pass - Remove Tags with Spaces

@@ -25,7 +25,7 @@ class MarkdownData
      *         hacky but useful for account for user inputs
      * @return array
      */
-    public function getAllMarkdownTags($includeSpacer = false) {
+    public function getAllMarkdownTags($includeSpacer = false): array {
         $spacer = '';
         if ($includeSpacer) {
             $spacer = ' ';
