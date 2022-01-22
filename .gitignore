@@ -1,5 +1,8 @@
 # System Files
 .DS_Store
 
+# Cache Files
+*.cache
+
 # Do not ignore vendor, for purposes of handing over all code for assignment
 # vendor/
