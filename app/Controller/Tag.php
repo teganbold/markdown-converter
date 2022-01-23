@@ -43,8 +43,4 @@ class Tag
 
         return preg_replace(self::LINK_REGEX, '<a href="$2">$1</a>', $snippet);
     }
-
-    public function matchHtmlEntity($markdownTag) {
-
-    }
 }
