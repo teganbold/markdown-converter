@@ -34,12 +34,14 @@ class MarkdownConverter implements Converter
         }
 
         $htmlOutput = '';
+        $activeParagraph = false;
 
         if ($this->hasMarkdown($markdown) === false) {
             return $this->markdown->toHtml($markdown, 'p');
         }
 
         $linedMarkdown = $this->markdown->sliceMultiLineMarkdown($markdown);
+        $activeParagraph = false;
 
         foreach ($linedMarkdown as $index => $line) {
             if($index > 0) {
@@ -53,7 +55,15 @@ class MarkdownConverter implements Converter
                 if($foundTags) {
                     $htmlOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($linkStrippedLine), $foundTags['htmlEntity']);
                 } else {
-                    $htmlOutput .= $this->markdown->toHtml($linkStrippedLine, 'p');
+                    if($activeParagraph === false) {
+                        $htmlOutput .= $this->markdown->addHtmlTag('p');
+                         $activeParagraph = true;
+                    }
+                    $htmlOutput .= $linkStrippedLine;
+                    if($line == end($linedMarkdown) || $linedMarkdown[$index + 1] == '') {
+                        $htmlOutput .= $this->markdown->addHtmlTag('p', 'close');
+                        $activeParagraph = false;
+                    }
                 }
             }
         }

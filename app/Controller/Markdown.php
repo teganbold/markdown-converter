@@ -18,11 +18,31 @@ class Markdown
      * 
      * @param  string $value: text to be wrapped inside the html tags
      * @param  string $htmlEntity: entity to use for the html tags
-     * @param  string $htmlOptions:  [optional]
+     * @param  string $htmlOptions: potential tag options [optional]
      * @return html snippet
      */
     public function toHtml(string $value, string $htmlEntity, string $htmlOptions = ''): string {
-        return '<' . $htmlEntity . '>' . $value . '</' . $htmlEntity . '>';
+        if($htmlOptions !== '') {
+            $htmlOptions = ' ' . $htmlOptions;
+        }
+
+        return '<' . $htmlEntity . $htmlOptions .'>' . $value . '</' . $htmlEntity . '>';
+    }
+
+    /**
+     *  Add opening or closing html entity tag
+     *
+     * @param  string $htmlEntity: entity to use for the html tags
+     * @param  string $htmlOptions: dictate whether tag is open or close tag [optional]
+     * @return html snippet
+     */
+    public function addHtmlTag(string $htmlEntity, string $closeOption = 'open'): string {
+        $closeTag = '';
+
+        if($closeOption =='close') {
+            $closeTag = '/';
+        }
+        return '<' . $closeTag . $htmlEntity . '>';
     }
 
     /**

@@ -19,7 +19,8 @@ class MarkdownData
      *  in the class
      *
      * @param  $includeSpacer: optional flag to include a space. This is a bit
-     *         hacky but useful for account for user inputs
+     *         hacky but useful for account for user inputs, to account for the
+     *         edge case that user use or do no use the space.
      * @return array
      */
     public function getAllMarkdownTags($includeSpacer = false): array {
