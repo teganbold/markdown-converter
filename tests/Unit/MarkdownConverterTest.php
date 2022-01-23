@@ -79,18 +79,18 @@ class MarkdownConverterTest extends TestCase
      */
     public function testMailchimpFirstInput() {
         $mailchimpMarkdown = <<<EOD
-            # Sample Document
+        # Sample Document
 
-            Hello!
+        Hello!
 
-            This is sample markdown for the [Mailchimp](https://www.mailchimp.com) homework assignment.
+        This is sample markdown for the [Mailchimp](https://www.mailchimp.com) homework assignment.
         EOD;
         $mailchimpHtml = <<<EOD
-            <h1>Sample Document</h1>
+        <h1>Sample Document</h1>
 
-            <p>Hello</p>
+        <p>Hello!</p>
 
-            <p>This is sample markdown for the <a href="https://www.mailchimp.com">Mailchimp</a> homework assignment</p>
+        <p>This is sample markdown for the <a href="https://www.mailchimp.com">Mailchimp</a> homework assignment.</p>
         EOD;
         $this->assertEquals($mailchimpHtml, $this->markdownConverter->convert($mailchimpMarkdown));
     }

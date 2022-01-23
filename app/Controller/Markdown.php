@@ -32,16 +32,7 @@ class Markdown
      * @return array
      */
     public function sliceMultiLineMarkdown(string $markdown): array {
-        $separator = "\r\n";
-        $line = strtok($markdown, $separator);
-        $linedMarkdown = [];
-
-        while ($line !== false) {
-            $linedMarkdown[] = ltrim($line);
-            $line = strtok($separator);
-        }
-
-        return $linedMarkdown;
+        return explode("\n", $markdown);
     }
 
     /**

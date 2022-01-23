@@ -33,7 +33,7 @@ class MarkdownConverter implements Converter
             return 'Please enter text to be converted, nothing given.';
         }
 
-        $htmlMarkupOutput = '';
+        $htmlOutput = '';
 
         if ($this->hasMarkdown($markdown) === false) {
             return $this->markdown->toHtml($markdown, 'p');
@@ -41,18 +41,24 @@ class MarkdownConverter implements Converter
 
         $linedMarkdown = $this->markdown->sliceMultiLineMarkdown($markdown);
 
-        foreach ($linedMarkdown as $line) {
-            $linkStrippedLine = $this->tag->convertHyperlinkToHtml($line);
-            $markdownTags = $this->getMarkdownTagDataset();
-            $foundTags = $this->markdown->findMarkdown($markdownTags, $linkStrippedLine);
-            if($foundTags) {
-                $htmlMarkupOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($linkStrippedLine), $foundTags['htmlEntity']);
-            } else {
-                $htmlMarkupOutput .= $this->markdown->toHtml($linkStrippedLine, 'p');
+        foreach ($linedMarkdown as $index => $line) {
+            if($index > 0) {
+                $htmlOutput .= "\n";
+            }
+
+            if($line != '') {
+                $linkStrippedLine = $this->tag->convertHyperlinkToHtml($line);
+                $markdownTags = $this->getMarkdownTagDataset();
+                $foundTags = $this->markdown->findMarkdown($markdownTags, $linkStrippedLine);
+                if($foundTags) {
+                    $htmlOutput .= $this->markdown->toHtml($this->markdown->removeMarkdown($linkStrippedLine), $foundTags['htmlEntity']);
+                } else {
+                    $htmlOutput .= $this->markdown->toHtml($linkStrippedLine, 'p');
+                }
             }
         }
 
-        return $htmlMarkupOutput;
+        return $htmlOutput;
     }
 
     /**
