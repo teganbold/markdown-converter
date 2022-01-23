@@ -13,34 +13,34 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testReturnsString() {
+    public function testReturnsString(): void {
         $this->assertIsString($this->markdownConverter->convert('test'));
     }
 
     /**
      * @test
      */
-    public function testParagraphWrap() {
+    public function testParagraphWrap(): void {
         $this->assertEquals('<p>test</p>', $this->markdownConverter->convert('test'));
     }
 
     /**
      * @test
      */
-    public function testH1WithoutSpace() {
+    public function testH1WithoutSpace(): void {
         $this->assertEquals('<h1>H1 Tag</h1>', $this->markdownConverter->convert('#H1 Tag'));
     }
 
     /**
      * @test
      */
-    public function testH1WithSpace() {
+    public function testH1WithSpace(): void {
         $this->assertEquals('<h1>H1 Tag</h1>', $this->markdownConverter->convert('# H1 Tag'));
     }
     /**
      * @test
      */
-    public function testAllHTags() {
+    public function testAllHTags(): void {
         for ($i = 1; $i < 7; $i++) {
             $markdown = str_repeat('#', $i);
             $this->assertEquals('<h' . $i . '>HeaderTags</h' . $i . '>', $this->markdownConverter->convert($markdown . ' HeaderTags'));
@@ -50,7 +50,7 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testHyperlink() {
+    public function testHyperlink(): void {
         $googleMarkdown = '[Google](https://google.com)';
         $googleHtml = '<a href="https://google.com">Google</a>';
         $this->assertEquals('<p>' . $googleHtml . '</p>', $this->markdownConverter->convert($googleMarkdown));
@@ -59,7 +59,7 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testInlineHyperlink() {
+    public function testInlineHyperlink(): void {
         $googleMarkdown = '[Google](https://google.com)';
         $googleHtml = '<a href="https://google.com">Google</a>';
         $this->assertEquals('<p>Search for it on ' . $googleHtml . ' to find out more information.</p>', $this->markdownConverter->convert('Search for it on ' . $googleMarkdown . ' to find out more information.'));
@@ -68,7 +68,7 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testHeaderwithLink() {
+    public function testHeaderwithLink(): void {
         $googleMarkdown = '# Check us out with [Google](https://google.com)';
         $googleHtml = '<h1>Check us out with <a href="https://google.com">Google</a></h1>';
         $this->assertEquals($googleHtml, $this->markdownConverter->convert($googleMarkdown));
@@ -77,7 +77,7 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testMailchimpFirstInput() {
+    public function testMailchimpFirstInput(): void {
         $mailchimpMarkdown = <<<EOD
         # Sample Document
 
@@ -98,7 +98,7 @@ class MarkdownConverterTest extends TestCase
     /**
      * @test
      */
-    public function testMailchimpSecondInput() {
+    public function testMailchimpSecondInput(): void {
         $mailchimpMarkdown = <<<EOD
         # Header one
 

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Markdown to HTML conveter
+ *
+ * Simple converter to change markdown to html. It currently onlt account for links,
+ * paragraphs, and headers, but it can easily be extended to account for more tags.
+ *
+ * @author     Tegan Bold
+ * @author     tegan.bold@gmail.com
+ */
 
 namespace App;
 
@@ -94,7 +103,7 @@ class MarkdownConverter implements Converter
      *
      * @return App\Model\MarkdownData::Array
      */
-    private function getMarkdownTagDataset() {
+    private function getMarkdownTagDataset(): array {
         if(!$this->markdownTags) {
             $this->markdownTags = $this->model->getAllMarkdownTags();
         }
